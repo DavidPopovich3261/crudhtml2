@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cards {
+            background-color: blanchedalmond;
+            height: 200px;
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <a href="index.html">index</a>
+    <script>
+        async function getData() {
+            const url = "http://127.0.0.1:5000/reports";
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const result = await response.json();
+                data = JSON.parse(result.data)
+                data.forEach(data => {            
+                    const card= document.createElement("div")
+                    card.innerHTML= `<h3>${data.Name}</h3> <p>${data.code}</p> <p>${data.target}</p> <p>${data.Information}</p> <p> ${data.time}</p>`
+                    card.className="cards"
+                    body.appendChild(card)
+                });
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+        getData()
+    
+    </script>
+</body>
+
+</html>

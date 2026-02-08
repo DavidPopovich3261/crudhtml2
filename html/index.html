@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="report.html">report</a>
+    <form id="myForm">
+        <input name="Name" type="text" placeholder="Agent Name">
+        <input name="code" type="text" placeholder="Agent Code ">
+        <input name="target" type="text" placeholder="Target ">
+        <textarea name="Information" id="" placeholder="Information "></textarea>
+        <button type="submit">Submit </button>
+        <script>
+            const form = document.getElementById("myForm");
+
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const formData = new FormData(form)
+                const data = Object.fromEntries(formData.entries());
+                data.time = new Date
+                fetch("http://127.0.0.1:5000/data", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ "data": data })
+                })
+                    .then((res) => res.json)
+                    .then((res) => console.log(res));
+            });
+        </script>
+    </form>
+</body>
+
+</html>
